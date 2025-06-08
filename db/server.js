@@ -55,8 +55,8 @@ app.post("/login", async (req, res) => {
   });
 
   // Guardar en sesión y en lista
-  req.session.usuario = resultado.nombre;
-  listaUsuarios[resultado.nombre] = true;
+  req.session.usuario = resultado.id;
+  listaUsuarios[resultado.id] = true;
 
   res.status(200).json({ message: "Inicio de sesión exitoso", usuario: resultado });
 
@@ -84,9 +84,10 @@ function verificarRol(rolRequerido) {
 }
 
 app.get("/principal", verificarAutenticacion, async (req, res) => {
+  console.log("LA SESION",req.session)
   user = req.session.usuario;
   const resultado = await Usuario.findOne({
-    where: { nombre: user }
+    where: { id: user }
   });
   if (resultado.rol=='admin'){
     res.sendFile(path.join(__dirname, "../public", "principal_admin.html"));
