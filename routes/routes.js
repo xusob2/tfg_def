@@ -11,6 +11,7 @@ const Oficio = db.Oficio;
 //
 // --- TAREAS ---
 //
+
 router.post('/tareas', upload.single('imagen'), async (req, res) => {
   try {
     const {

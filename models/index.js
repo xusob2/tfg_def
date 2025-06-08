@@ -25,6 +25,7 @@ db.inquilinos = require('./inquilinos')(sequelize, Sequelize);
 db.trabajadores = require('./trabajadores')(sequelize, Sequelize);
 db.viviendas = require('./viviendas')(sequelize, Sequelize);
 db.viviendas_inquilinos = require('./viviendas_inquilinos')(sequelize, Sequelize);
+db.Usuario = require('./usuarios')(sequelize, Sequelize);
 
 // Relaciones
 
