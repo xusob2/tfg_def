@@ -48,7 +48,8 @@ app.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Contraseña incorrecta" });
   }
 
-  res.cookie('nombreUsuario', resultado.nombre, {
+  //Devolución de cookie con rol
+  res.cookie('rolUsuario', resultado.rol, {
     secure: false, // puedes cambiar a true si usas HTTPS
     sameSite: 'Strict',
   });
@@ -58,5 +59,42 @@ app.post("/login", async (req, res) => {
   listaUsuarios[resultado.nombre] = true;
 
   res.status(200).json({ message: "Inicio de sesión exitoso", usuario: resultado });
-  
+
+});
+
+function verificarAutenticacion(req, res, next) {
+    if (req.session.usuario) {
+        next(); // El usuario está autenticado, continúa con la siguiente función
+    } else {
+        res.status(401).send('Acceso denegado. Por favor inicia sesión.');
+    }
+}
+
+function verificarRol(rolRequerido) {
+  return (req, res, next) => {
+    const usuario = req.session.usuario;
+    if (!usuario) {
+      return res.status(401).json({ error: "No autenticado" });
+    }
+    if (usuario.rol !== rolRequerido) {
+      return res.status(403).json({ error: "No tienes permiso para acceder a esta ruta" });
+    }
+    next();
+  };
+}
+
+app.get("/principal", verificarAutenticacion, async (req, res) => {
+  user = req.session.usuario;
+  const resultado = await Usuario.findOne({
+    where: { nombre: user }
+  });
+  if (resultado.rol=='admin'){
+    res.sendFile(path.join(__dirname, "../public", "principal_admin.html"));
+  }else if(resultado.rol=='inquilino'){
+    res.sendFile(path.join(__dirname, "../public", "principal_inquilino.html"));
+  }else if(resultado.rol=='trabajador'){
+    res.sendFile(path.join(__dirname, "../public", "principal_trabajador.html"));
+  }else{
+    res.sendFile(path.join(__dirname, "../public", "index.html"));
+  }
 });
