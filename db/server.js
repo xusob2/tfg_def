@@ -63,20 +63,23 @@ app.post("/login", async (req, res) => {
 });
 
 function verificarAutenticacion(req, res, next) {
-    if (req.session.usuario) {
-        next(); // El usuario está autenticado, continúa con la siguiente función
-    } else {
-        res.status(401).send('Acceso denegado. Por favor inicia sesión.');
-    }
+  if (req.session.usuario) {
+    next(); // El usuario está autenticado, continúa con la siguiente función
+  } else {
+    res.status(401).send('Acceso denegado. Por favor inicia sesión.');
+  }
 }
 
 function verificarRol(rolRequerido) {
-  return (req, res, next) => {
-    const usuario = req.session.usuario;
-    if (!usuario) {
+  return async (req, res, next) => {
+    user = req.session.usuario;
+    const resultado = await Usuario.findOne({
+      where: { id: user }
+    });
+    if (!resultado) {
       return res.status(401).json({ error: "No autenticado" });
     }
-    if (usuario.rol !== rolRequerido) {
+    if (resultado.rol !== rolRequerido) {
       return res.status(403).json({ error: "No tienes permiso para acceder a esta ruta" });
     }
     next();
@@ -84,18 +87,18 @@ function verificarRol(rolRequerido) {
 }
 
 app.get("/principal", verificarAutenticacion, async (req, res) => {
-  console.log("LA SESION",req.session)
+  console.log("LA SESION", req.session)
   user = req.session.usuario;
   const resultado = await Usuario.findOne({
     where: { id: user }
   });
-  if (resultado.rol=='admin'){
+  if (resultado.rol == 'admin') {
     res.sendFile(path.join(__dirname, "../public", "principal_admin.html"));
-  }else if(resultado.rol=='inquilino'){
+  } else if (resultado.rol == 'inquilino') {
     res.sendFile(path.join(__dirname, "../public", "principal_inquilino.html"));
-  }else if(resultado.rol=='trabajador'){
+  } else if (resultado.rol == 'trabajador') {
     res.sendFile(path.join(__dirname, "../public", "principal_trabajador.html"));
-  }else{
+  } else {
     res.sendFile(path.join(__dirname, "../public", "index.html"));
   }
 });
