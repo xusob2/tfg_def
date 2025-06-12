@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Empresas</title>
+</head>
+<body>
+  <h1>Listado de Empresas</h1>
+  <ul id="listaEmpresas"></ul>
+
+  <hr />
+
+  <h2>Crear Nueva Empresa</h2>
+  <form id="formEmpresa">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" required><br><br>
+
+    <label for="cif">CIF:</label><br>
+    <input type="text" id="cif" name="cif" required><br><br>
+
+    <label for="sector">Sector:</label><br>
+    <input type="text" id="sector" name="sector"><br><br>
+
+    <button type="submit">Crear Empresa</button>
+  </form>
+
+  <script src="adminScript.js"></script>
+</body>
+</html>

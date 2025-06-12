@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Panel del Trabajador</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">Panel del Trabajador</div>
+    <div class="nav-links">
+        <ul>
+            <li>
+                <a href="#incidenciasSection" onclick="mostrarSeccion('incidenciasSection')" class="active">
+                    Incidencias
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="user-icon">
+        <img src="images/trabajador.jpeg" alt="Avatar" style="width:32px; height:32px; border-radius:50%;" />
+    </div>
+</nav>
+
+<!-- Main content -->
+<section id="main" style="margin-top: 60px;">
+    <div class="opciones">
+
+        <!-- Sección Incidencias -->
+        <div id="incidenciasSection" class="card-form">
+            <h2>Incidencias asignadas</h2>
+            <ul id="listaIncidencias" style="text-align:left; margin-bottom:1em;">
+                <!-- Se llenará dinámicamente -->
+            </ul>
+
+            <hr />
+
+            <h2>Incidencias resueltas</h2>
+            <ul id="incidenciasResueltas" style="text-align:left;">
+                <!-- Se llenará dinámicamente -->
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // Mostrar solo la sección activa
+    function mostrarSeccion(id) {
+        document.querySelectorAll('.opciones > div').forEach(sec => {
+            sec.style.display = sec.id === id ? 'block' : 'none';
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('onclick').includes(id));
+        });
+    }
+
+    // Inicializa la vista
+    document.addEventListener("DOMContentLoaded", () => {
+        mostrarSeccion('incidenciasSection');
+        // Aquí iría la lógica de trabajadorScript.js para poblar los <ul>
+    });
+</script>
+<script src="trabajadorScript.js"></script>
+
+</body>
+
+</html>

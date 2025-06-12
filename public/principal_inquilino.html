@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Panel del Inquilino</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Panel del Inquilino</div>
+        <div class="nav-links">
+            <ul>
+                <li>
+                    <a href="#incidenciasSection" onclick="mostrarSeccion('incidenciasSection')" class="active">
+                        Crear Incidencia
+                    </a>
+                </li>
+                <li>
+                    <a href="#incidenciasPropias" onclick="mostrarSeccion('incidenciasPropias')" class="active">
+                        Mis incidencias
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-icon">
+            <img src="images/inquilino.jpg" alt="Avatar" class="user-avatar" style="width:32px; height:32px; border-radius:50%;" />
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <section id="main" class="main-content">
+        <div class="opciones">
+
+            <!-- Sección Incidencias -->
+            <div id="incidenciasSection" class="card-form">
+                <h2>Crear nueva incidencia</h2>
+                <form id="formIncidencia">
+                    <div style="text-align:left;">
+                        <label for="vivienda">Vivienda:</label><br>
+                        <input type="text" id="vivienda" name="direccion_vivienda" required disabled
+                            style="width:100%; padding:8px; margin-top:4px;" />
+                        <input type="hidden" id="id_vivienda" name="id_vivienda" /> <br><br>
+                        <label for="descripcion">Descripción:</label><br>
+                        <textarea id="descripcion" name="descripcion" rows="4" required
+                            style="width:100%; padding:8px; margin-top:4px;"></textarea> <br><br>
+                        <button type="submit" style="padding:10px 20px;">Crear Incidencia</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="incidenciasPropias">
+                <h2 style="padding:8px; margin-top:4px;">Mis incidencias</h2>
+                <div class="tabla-container">
+                    <table class="card__table">
+                        <thead>
+                            <tr>
+                                <th>Fecha de creación</th>
+                                <th>Descripción</th>
+                                <th>Visita planificada</th>
+                                <th>Trabajador asignado</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-incidencias">
+                            <!-- Filas dinámicas aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Mostrar sólo la sección activa
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.opciones > div').forEach(sec => {
+                sec.style.display = sec.id === id ? 'block' : 'none';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('onclick').includes(id));
+            });
+        }
+
+        // Inicializa la vista
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarSeccion('incidenciasSection');
+        });
+    </script>
+    <script src="inquilinoScript.js"></script>
+
+</body>
+
+</html>

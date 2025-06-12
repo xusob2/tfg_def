@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Administración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+
+<!-- Barra superior -->
+<header class="navbar">
+  <div class="logo">Gestiones Albaluz</div>
+  <nav class="nav-links">
+    <ul>
+      <li class="dropdown">
+        <a href="#">Empresas</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="event.preventDefault(); mostrarSeccion('seccionEmpresas');">Ver empresas</a></li>
+          <li><a href="#" onclick="event.preventDefault(); mostrarSubseccion('formEmpresa');">Agregar empresa</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Trabajadores</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="event.preventDefault(); mostrarSeccion('seccionTrabajadores');">Ver trabajadores</a></li>
+          <li><a href="#" onclick="event.preventDefault(); mostrarSubseccion('formTrabajador');">Agregar trabajador</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Viviendas</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="event.preventDefault(); mostrarSeccion('crearVivienda');">Ver viviendas</a></li>
+          <li><a href="#" onclick="event.preventDefault(); mostrarSubseccion('formVivienda');">Agregar vivienda</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Inquilinos</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="event.preventDefault(); mostrarSeccion('seccionInquilinos');">Ver inquilinos</a></li>
+          <li><a href="#" onclick="event.preventDefault(); mostrarSubseccion('formInquilino');">Agregar inquilino</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Incidencias</a>
+        <ul class="submenu">
+          <li><a href="#" onclick="event.preventDefault(); mostrarSeccion('seccionIncidencias')">Ver incidencias</a></li>
+        </ul>
+      </li>
+      <li><a class="user-icon">👤 Admin</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Sección principal con imagen -->
+<section class="hero">
+  <div class="hero-content">
+    <h3>Gestionando tus recursos de forma eficiente</h3>
+    <h1>PANEL DE ADMINISTRACIÓN</h1>
+    <a href="#" class="hero-button" onclick="mostrarOpciones(event)">Ir al panel</a>
+  </div>
+</section>
+
+<!-- Sección de botones -->
+<section class="opciones" id="panel" style="display: none;">
+  <div class="card card-empresas" onclick="mostrarSeccion('seccionEmpresas')">
+    <h2>Empresas</h2>
+  </div>
+  <div class="card card-trabajadores" onclick="mostrarSeccion('seccionTrabajadores')">
+    <h2>Trabajadores</h2>
+  </div>
+  <div class="card card-viviendas" onclick="mostrarSeccion('crearVivienda')">
+    <h2>Viviendas</h2>
+  </div>
+  <div class="card card-inquilinos" onclick="mostrarSeccion('seccionInquilinos')">
+    <h2>Inquilinos</h2>
+  </div>
+  <div class="card card-inquilinos" onclick="mostrarSeccion('seccionIncidencias')">
+    <h2>Incidencias</h2>
+  </div>
+</section>
+
+
+<!-- Contenido principal -->
+<section id="main">
+  <div class="inner">
+    <!-- Empresas -->
+    <section id="seccionEmpresas" class="seccion-completa" style="display: none">
+      <h2 class="titulo-seccion">Empresas</h2>
+      <button class="boton-agregar" onclick="mostrarSubseccion('formEmpresa')" data-tooltip="Agregar nuevo">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+
+
+      <div id="listadoEmpresas" style="display: block">
+        <div class="tabla-container">
+          <table class="card__table" id="tablaEmpresas">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>CIF</th>
+              <th>Sector</th>
+              <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div id="formEmpresa" class="seccion-completa" style="display: none">
+        <form id="formEmpresaForm">
+          <label for="nombre">Nombre:</label><br />
+          <input type="text" id="nombre" name="nombre" required /><br /><br />
+          <label for="cif">CIF:</label><br />
+          <input type="text" id="cif" name="cif" required /><br /><br />
+          <label for="sector">Sector:</label><br />
+          <input type="text" id="sector" name="sector" /><br /><br />
+          <button type="submit">Crear Empresa</button>
+        </form>
+      </div>
+    </section>
+
+
+    <section id="seccionIncidencias" style="display: none">
+      <h2>Incidencias</h2>
+      <div id="listadoIncidencias">
+        <div class="tabla-container">
+          <table class="card__table" id="tablaIncidencias">
+            <thead>
+            <tr>
+              <th>ID Vivienda</th>
+              <th>ID Trabajador</th>
+              <th>Solucionada</th>
+              <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Filas se llenan dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trabajadores -->
+    <section id="seccionTrabajadores" class="seccion-completa" style="display: none">
+      <h2 class="titulo-seccion">Trabajadores</h2>
+      <button class="boton-agregar" onclick="mostrarSubseccion('formTrabajador')" data-tooltip="Agregar nuevo">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+
+      <div id="listadoTrabajadores">
+        <!-- Tabla de trabajadores -->
+        <div class="tabla-container">
+          <table class="card__table" id="tablaTrabajadores">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Profesión</th>
+              <th>Empresa</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="formTrabajador" style="display: none">
+        <form id="formTrabajadorForm">
+          <label for="nombreUsuario">Nombre de usuario:</label>
+          <input type="text" id="nombreUsuario" name="nombre_usuario" required><br><br>
+          <label for="passwordUsuario">Contraseña:</label>
+          <input type="password" id="passwordUsuario" name="contraseña" required><br><br>
+          <label for="nombreTrabajador">Nombre:</label><br>
+          <input type="text" id="nombreTrabajador" name="nombre" required><br><br>
+          <label for="apellidosTrabajador">Apellidos:</label><br>
+          <input type="text" id="apellidosTrabajador" name="apellidos" required><br><br>
+          <label for="profesionTrabajador">Profesión:</label><br>
+          <input type="text" id="profesionTrabajador" name="profesion"><br><br>
+          <label for="empresaTrabajador">Empresa:</label><br>
+          <select id="empresaTrabajador" name="id_empresa" required>
+            <option value="">-- Selecciona una empresa --</option>
+          </select><br><br>
+          <button type="submit">Crear Trabajador</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Viviendas -->
+    <section id="crearVivienda" class="seccion-completa" style="display: none">
+      <h2 class="titulo-seccion">Viviendas</h2>
+      <button class="boton-agregar" onclick="mostrarSubseccion('formVivienda')" data-tooltip="Agregar nuevo">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+
+      <div id="listadoViviendas">
+        <!-- Tabla de viviendas -->
+        <div class="tabla-container">
+          <table class="card__table" id="tablaViviendas">
+            <thead>
+            <tr>
+              <th>Dirección</th><th>Escalera</th><th>Piso</th>
+              <th>Letra</th><th>Habitaciones</th><th>m²</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="formVivienda" style="display: none">
+        <form id="formViviendaForm">
+          <label for="direccion">Dirección:</label>
+          <input type="text" name="direccion" id="direccion"><br><br>
+          <label for="escalera">Escalera:</label>
+          <input type="text" name="escalera" id="escalera"><br><br>
+          <label for="piso">Piso:</label>
+          <input type="number" name="piso" id="piso"><br><br>
+          <label for="letra">Letra:</label>
+          <input type="text" name="letra" id="letra"><br><br>
+          <label for="habitaciones">Habitaciones:</label>
+          <input type="number" name="habitaciones" id="habitaciones"><br><br>
+          <label for="metros_cuadrados">Metros Cuadrados:</label>
+          <input type="number" name="metros_cuadrados" id="metros_cuadrados"><br><br>
+          <label for="observaciones">Observaciones:</label><br>
+          <textarea name="observaciones" id="observaciones" rows="4" cols="50"></textarea><br><br>
+          <button type="submit">Crear Vivienda</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Inquilinos -->
+    <section id="seccionInquilinos"  class="seccion-completa" style="display: none">
+      <h2 class="titulo-seccion">Inquilinos</h2>
+      <button class="boton-agregar" onclick="mostrarSubseccion('formInquilino')" data-tooltip="Agregar nuevo">
+        <span class="material-symbols-outlined">add</span>
+      </button>
+      <div id="listadoInquilinos">
+        <!-- Tabla de inquilinos -->
+        <div class="tabla-container">
+          <table class="card__table" id="tablaInquilinos">
+            <thead>
+            <tr>
+              <th>Nombre</th><th>Apellidos</th><th>Fecha Nac.</th><th>DNI</th><th>Vivienda</th><th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="formInquilino" style="display: none">
+        <form id="formInquilinoForm">
+          <label for="nombreUsuarioInquilino">Nombre de usuario:</label>
+          <input type="text" id="nombreUsuarioInquilino" name="nombre_usuario" required><br><br>
+          <label for="passwordUsuarioInquilino">Contraseña:</label>
+          <input type="password" id="passwordUsuarioInquilino" name="contraseña" required>
+          <label for="nombreInquilino">Nombre:</label><br>
+          <input type="text" id="nombreInquilino" name="nombre" required><br><br>
+          <label for="apellidosInquilino">Apellidos:</label><br>
+          <input type="text" id="apellidosInquilino" name="apellidos" required><br><br>
+          <label for="fecha_nacimiento">Fecha de nacimiento:</label><br>
+          <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"><br><br>
+          <label for="dni">DNI:</label><br>
+          <input type="text" id="dni" name="dni" required><br><br>
+          <label for="viviendaInquilino">Vivienda (opcional):</label><br>
+          <select id="viviendaInquilino" name="vivienda_id">
+            <option value="">-- Selecciona una vivienda disponible --</option>
+          </select><br><br>
+          <button type="submit">Crear Inquilino</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script src="adminScript.js"></script>
+</body>
+</html>

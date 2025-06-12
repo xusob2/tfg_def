@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Parte de la imagen */
+.img-box {
+  flex: 1;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Parte del formulario */
+.form-box {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
+}
+
+#formularioLogin {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+#formularioLogin h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+hr {
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #7c70ff;
+}
+
+.mostrar-contraseña {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #777;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.extras a {
+  color: #555;
+  text-decoration: none;
+}
+
+.extras a:hover {
+  text-decoration: underline;
+}
+
+button[type="submit"] {
+  background-color: #7c70ff;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #5e56cc;
+}
+
+.signup-text {
+  text-align: center;
+  margin: 25px 0 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
