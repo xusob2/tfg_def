@@ -6,12 +6,12 @@ async function cargarEmpresas() {
     const tbody = document.querySelector('#tablaEmpresas tbody');
     tbody.innerHTML = '';
 
-    empresas.forEach(e => {
-      const tr = document.createElement('tr');
+empresas.forEach(e => {
+  const tr = document.createElement('tr');
 
-      tr.setAttribute('data-id-empresa', e.id);
+  tr.setAttribute('data-id-empresa', e.id);
 
-      tr.innerHTML = `
+  tr.innerHTML = `
     <td>${e.nombre}</td>
     <td>${e.cif}</td>
     <td>${e.sector}</td>
@@ -22,8 +22,8 @@ async function cargarEmpresas() {
     </td>
   `;
 
-      tbody.appendChild(tr);
-    });
+  tbody.appendChild(tr);
+});
 
     const selector = document.getElementById('empresaTrabajador');
     selector.innerHTML = '<option value="">-- Selecciona una empresa --</option>';
@@ -40,27 +40,27 @@ async function cargarEmpresas() {
 }
 
 document.getElementById('formEmpresaForm')
-    .addEventListener('submit', async e => {
-      e.preventDefault();
-      const data = {
-        nombre: document.getElementById('nombre').value,
-        cif: document.getElementById('cif').value,
-        sector: document.getElementById('sector').value
-      };
-      try {
-        await fetch('/api/empresas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        e.target.reset();
-        cargarEmpresas();
-        alert('Empresa creada correctamente');
-      } catch (err) {
-        console.error('Error al crear empresa:', err);
-        alert('No se pudo crear empresa.\n' + err.message);
-      }
-    });
+  .addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = {
+      nombre: document.getElementById('nombre').value,
+      cif: document.getElementById('cif').value,
+      sector: document.getElementById('sector').value
+    };
+    try {
+      await fetch('/api/empresas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      e.target.reset();
+      cargarEmpresas();
+      alert('Empresa creada correctamente');
+    } catch (err) {
+      console.error('Error al crear empresa:', err);
+      alert('No se pudo crear empresa.\n' + err.message);
+    }
+  });
 
 
 
@@ -100,7 +100,7 @@ async function cargarTrabajadores() {
 document.getElementById('formTrabajadorForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const datosCompletos = {
+   const datosCompletos = {
     nombre_usuario: document.getElementById('nombreUsuario').value,
     contraseña: document.getElementById('passwordUsuario').value,
     rol: 'trabajador',
@@ -228,12 +228,12 @@ async function cargarInquilinos() {
 
     ins.forEach(i => {
       const viviendaTexto = i.vivienda
-          ? `${i.vivienda.direccion || '-'} Esc. ${i.vivienda.escalera || '-'}, Piso ${i.vivienda.piso || '-'}, Letra ${i.vivienda.letra || '-'}`
-          : 'Sin vivienda';
+        ? `${i.vivienda.direccion || '-'} Esc. ${i.vivienda.escalera || '-'}, Piso ${i.vivienda.piso || '-'}, Letra ${i.vivienda.letra || '-'}`
+        : 'Sin vivienda';
 
       const tr = document.createElement('tr');
       tr.setAttribute('data-id-inquilino', i.id);
-
+      
       tr.innerHTML = `
         <td>${i.nombre}</td>
         <td>${i.apellidos}</td>
@@ -294,7 +294,7 @@ function mostrarSeccion(id, event = null) {
 }
 
 
-function mostrarSubseccion(id) {
+  function mostrarSubseccion(id) {
   const contenedores = [
     'listadoEmpresas', 'formEmpresa',
     'listadoTrabajadores', 'formTrabajador',
@@ -357,9 +357,9 @@ function mostrarSubseccion(id) {
 }
 
 
-
-function mostrarFormulario(id) {
-  const form = document.getElementById(id);
+    
+    function mostrarFormulario(id) {
+     const form = document.getElementById(id);
   if (!form) return;
   form.style.display = (form.style.display === 'block') ? 'none' : 'block';
 }
@@ -375,7 +375,7 @@ async function verTrabajadoresDeEmpresa(idEmpresa) {
   }
 
   try {
-
+ 
     const res = await fetch(`/api/trabajadores?empresa=${idEmpresa}`);
     const trabajadores = await res.json();
 
@@ -472,11 +472,11 @@ async function mostrarSelectorVivienda(idInquilino) {
         // Cargar los datos actualizados de ese inquilino
         const datosActualizados = await fetch(`/api/inquilinos/${idInquilino}`);
         if (!datosActualizados.ok) {
-          const texto = await datosActualizados.text(); // Esto NO lanza error
-          console.error('Respuesta no OK:', texto);
-          throw new Error('No se pudo obtener los datos del inquilino');
-        }
-        let inquilino;
+  const texto = await datosActualizados.text(); // Esto NO lanza error
+  console.error('Respuesta no OK:', texto);
+  throw new Error('No se pudo obtener los datos del inquilino');
+}
+      let inquilino;
         try {
           inquilino = await datosActualizados.json();
         } catch (err) {
@@ -488,8 +488,8 @@ async function mostrarSelectorVivienda(idInquilino) {
 
         // Obtener texto formateado de la vivienda
         const viviendaTexto = inquilino.vivienda
-            ? `${inquilino.vivienda.direccion || '-'} Esc. ${inquilino.vivienda.escalera || '-'}, Piso ${inquilino.vivienda.piso || '-'}, Letra ${inquilino.vivienda.letra || '-'}`
-            : 'Sin vivienda asignada';
+          ? `${inquilino.vivienda.direccion || '-'} Esc. ${inquilino.vivienda.escalera || '-'}, Piso ${inquilino.vivienda.piso || '-'}, Letra ${inquilino.vivienda.letra || '-'}`
+          : 'Sin vivienda asignada';
 
         // Actualizamos solo la celda de la vivienda en la fila
         const fila = document.querySelector(`#tablaInquilinos tr[data-id-inquilino="${idInquilino}"]`);
@@ -505,7 +505,7 @@ async function mostrarSelectorVivienda(idInquilino) {
       }
     };
 
-    div.innerHTML = '';
+    div.innerHTML = ''; 
     div.appendChild(select);
     div.appendChild(btn);
 
@@ -536,7 +536,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const secciones = document.querySelectorAll("#main section");
 
   if (hero) hero.style.display = "flex";
-  if (opciones) opciones.style.display = "none";
+if (opciones) opciones.style.display = "none";
 
 
   secciones.forEach(sec => {
@@ -701,5 +701,4 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarViviendas();
   cargarInquilinos();
   cargarViviendasDisponibles();
-  cargarIncidencias();
 });
