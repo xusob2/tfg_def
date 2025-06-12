@@ -48,6 +48,6 @@ router.delete('/empresas/:id', empresaController.deleteEmpresa);
 //
 router.post('/inquilinos', inquilinoController.crearInquilino);
 router.get('/inquilinos', inquilinoController.getInquilinos);
-router.get('/inquilinos/:id', inquilinoController.getInquilinoById);
+router.get('/inquilino/:id', inquilinoController.getInquilinoById);
 router.patch('/inquilinos/:id', inquilinoController.updateInquilino);
 module.exports = router;
